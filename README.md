@@ -43,6 +43,10 @@ To push it into your TRMNL account: `trmnlp login`, then `trmnlp push`.
 
 See [CLAUDE.md](CLAUDE.md) for the architecture, the TRMNL framework quirks this plugin works around, and how to preview the TRMNL X layout locally.
 
+## Contributing
+
+PRs welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) — and if you work with AI agents, point them at [AGENTS.md](AGENTS.md) first.
+
 ## Credits & legal
 
 - Card data and images via [Scryfall](https://scryfall.com); prices via Cardmarket/TCGplayer through Scryfall.

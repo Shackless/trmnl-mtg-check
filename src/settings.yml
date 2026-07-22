@@ -9,6 +9,7 @@ serverless_language: python
 polling_url: 'https://api.scryfall.com/cards/search?q=set%3A{{ set_custom | default: set | default: "hob" | split: ":_" | last }}&unique=cards&order=set'
 polling_headers: accept=application/json
 polling_body: 
+id: 389435
 oauth_enabled: 'false'
 oauth_pkce_enabled: 'no'
 oauth_authorize_url: ''
