@@ -43,6 +43,10 @@ docker run --rm -p 4567:4567 -v "$(pwd):/plugin" trmnl/trmnlp serve --bind 0.0.0
 - Keep the title bar and labels in English.
 - Payloads/templates: keywords line auto-hides when the keywords already lead the oracle text (`shape()` dedup).
 
+## "The card never changes on its own!"
+
+If a user reports the card only changes on manual refresh: check the **playlist item's schedule/duration** on usetrmnl.com. With a single-item playlist that value effectively becomes the content refresh cadence and overrides the plugin's 15-minute `refresh_interval` (a 24 h duration = one new card per day). Diagnosis: `GET https://trmnl.com/api/current_screen` with the device API key — if `refresh_rate` reports ~86400 s instead of ~900 s, that's the gate. Fix: set the playlist item duration to 15 minutes.
+
 ## Maintainer release flow (how changes reach devices)
 
 GitHub is a **push mirror** of the maintainer's private Gitea (one-way). The TRMNL recipe is a snapshot of the maintainer's plugin instance — **merging a PR on GitHub alone changes nothing on TRMNL**. Full flow:
