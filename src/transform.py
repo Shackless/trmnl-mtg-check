@@ -69,6 +69,7 @@ def shape(card):
         "mana": mana,
         "type": face.get("type_line", card.get("type_line", "")),
         "text": ((oracle or "")[:260] + ("&hellip;" if oracle and len(oracle) > 260 else "")),
+        "text_first": (lambda p: p[0][:220] if len(p) < 2 or len(p[0]) + len(p[1]) > 219 else p[0] + "\n" + p[1])((oracle or "").split("\n")),
         "flavor": (flavor or "")[:180],
         "pt": pt,
         "rarity": card.get("rarity", ""),
