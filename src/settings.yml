@@ -30,6 +30,13 @@ oauth_expiry_field_name: ''
 oauth_expiry_strategy: ''
 oauth_fixed_expiry_ms: ''
 custom_fields:
+- keyname: about
+  name: About This Plugin
+  field_type: author_bio
+  description: Rotates through the cards of any Magic&colon; The Gathering set, one card at a time — image, oracle text, prices, EDHREC rank and a Cardmarket QR code. Powered by Scryfall. Unofficial fan content, not affiliated with Wizards of the Coast.
+  category: games
+  github_url: https://github.com/Shackless/trmnl-mtg-check
+  learn_more_url: https://github.com/Shackless/trmnl-mtg-check#readme
 - keyname: set
   name: Set
   field_type: select
