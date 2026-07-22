@@ -86,5 +86,5 @@ custom_fields:
   name: Show two cards side by side (full screen only)
   field_type: boolean
   default: false
-name: Magic the Gathering (MtG) Card Show
+name: 'Magic: The Gathering (MtG) Card Show'
 refresh_interval: 15
