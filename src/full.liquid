@@ -57,10 +57,11 @@
       {% if card.legal != "" %}
       <div class="value value--xxsmall block">Legal: {{ card.legal }}</div>
       {% endif %}
-      <div class="value value--xxsmall block">{{ card.rarity | capitalize }} #{{ card.cn }}{% if card.price_eur_foil %} &middot; Foil {{ card.price_eur_foil }} &euro;{% endif %}{% if card.price_usd %} &middot; ${{ card.price_usd }} TCG{% endif %} &middot; Art: {{ card.artist }}{% if card.reprint %} &middot; Reprint{% endif %}</div>
+      <div class="value value--xxsmall block">{{ card.rarity | capitalize }} #{{ card.cn }}{% if card.price_eur_foil %} &middot; Foil {{ card.price_eur_foil }} &euro;{% endif %}{% if card.reprint %} &middot; Reprint{% endif %}</div>
+      <div class="value value--xxsmall block">Art: {{ card.artist }}</div>
 
       <div class="flex w--full lg:mt--16" style="align-items: flex-end">
-        <div class="flex gap--large stretch" style="min-width: 0">
+        <div class="flex gap--large stretch" style="min-width: 0; align-items: flex-end">
           <div class="flex flex--col no-shrink">
             {% if card.price_eur %}
             <span class="value value--tnums">{{ card.price_eur }} &euro;</span>
@@ -95,7 +96,8 @@
 <div class="title_bar">
   <span class="title">{{ set_name }}</span>
   {% if card_next and two_up != true %}
-  <span class="value value--xxsmall stretch text--center" data-clamp="1" style="min-width: 0">Next: {{ card_next.name }}{% if card_next.price_eur %} ({{ card_next.price_eur }} &euro;){% endif %}</span>
+  {%- comment -%} .title carries the bar's optical padding-top; a plain value span sits visibly too high {%- endcomment -%}
+  <span class="title stretch text--center" style="min-width: 0; overflow: hidden; text-overflow: ellipsis">Next: {{ card_next.name }}{% if card_next.price_eur %} ({{ card_next.price_eur }} &euro;){% endif %}</span>
   {% endif %}
   <span class="instance" style="flex: 0 0 auto">Card {{ pos }}/{{ total }}</span>
 </div>
