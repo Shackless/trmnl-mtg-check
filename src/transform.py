@@ -100,6 +100,8 @@ def shape(card):
     legalities = card.get("legalities") or {}
     oracle = oracle or ""
     body, body_cut = clip(oracle, 260)
+    # The X has room for far more text (Sagas etc.); template picks per size
+    body_lg, body_lg_cut = clip(oracle, 800)
     paras = oracle.split("\n")
     if len(paras) >= 2 and len(paras[0]) + len(paras[1]) <= 219:
         first = paras[0] + "\n" + paras[1]
@@ -114,6 +116,7 @@ def shape(card):
         "mana_txt": (face.get("mana_cost") or "").replace("{", "").replace("}", ""),
         "type": face.get("type_line", card.get("type_line", "")),
         "text": symbolize(body) + ("&hellip;" if body_cut else ""),
+        "text_lg": symbolize(body_lg) + ("&hellip;" if body_lg_cut else ""),
         "text_first": symbolize(first),
         "flavor": (flavor or "")[:180],
         "pt": pt,

@@ -25,21 +25,22 @@
   <div class="flex flex--center-y h--full">
     <img class="image image-dither" src="{{ card.img }}" style="max-height: 100%; width: auto" />
   </div>
-  <div class="flex flex--col gap--xsmall h--full stretch" style="min-width: 0; min-height: 0; align-items: flex-start">
+  <div class="flex flex--col gap--xsmall h--full stretch lg:pt--10 lg:pr--16 lg:pb--10" style="min-width: 0; min-height: 0; align-items: flex-start">
 
     <div class="w--full">
       <div class="flex flex--center-y w--full">
         <span class="title title--large stretch" data-clamp="1" style="min-width: 0">{{ card.name }}</span>
         {% if card.mana != "" %}<span class="value value--small value--tnums no-shrink">{{ card.mana }}</span>{% endif %}
       </div>
-      <div class="value value--xsmall" data-clamp="1">{{ card.type }}</div>
+      <div class="value value--xsmall lg:mt--5" data-clamp="1">{{ card.type }}</div>
     </div>
 
-    <div class="w--full">
+    <div class="w--full lg:mt--16">
       {% if card.keywords != "" %}
       <div class="title title--small">{{ card.keywords }}</div>
       {% endif %}
-      <div class="value value--xsmall" style="white-space: pre-line">{{ card.text }}</div>
+      <div class="value value--xsmall lg:hidden" style="white-space: pre-line">{{ card.text }}</div>
+      <div class="value value--xsmall hidden lg:block" style="white-space: pre-line">{{ card.text_lg }}</div>
       {% if card.flavor != "" %}
       <div class="value value--xxsmall" style="font-style: italic">{{ card.flavor }}</div>
       {% endif %}
@@ -58,7 +59,7 @@
       {% endif %}
       <div class="value value--xxsmall block">{{ card.rarity | capitalize }} #{{ card.cn }}{% if card.price_eur_foil %} &middot; Foil {{ card.price_eur_foil }} &euro;{% endif %}{% if card.price_usd %} &middot; ${{ card.price_usd }} TCG{% endif %} &middot; Art: {{ card.artist }}{% if card.reprint %} &middot; Reprint{% endif %}</div>
 
-      <div class="flex w--full lg:mt--20" style="align-items: flex-end">
+      <div class="flex w--full lg:mt--16" style="align-items: flex-end">
         <div class="flex gap--large stretch" style="min-width: 0">
           <div class="flex flex--col no-shrink">
             {% if card.price_eur %}
@@ -81,11 +82,10 @@
         {% endif %}
       </div>
 
-      <div class="progress-bar progress-bar--xsmall hidden lg:block w--full lg:mt--20">
+      <div class="progress-bar progress-bar--xsmall hidden lg:block w--full lg:mt--16">
         {%- comment -%} Inline width is TRMNL's own documented progress-bar pattern; a Liquid-computed percentage cannot be a class. {%- endcomment -%}
         <div class="track"><div class="fill" style="width: {{ pos | times: 100 | divided_by: total }}%"></div></div>
       </div>
-      <div class="value value--xxsmall block text--right lg:mt--10" data-clamp="1">Next: {{ card_next.name }}{% if card_next.price_eur %} ({{ card_next.price_eur }} &euro;){% endif %}</div>
     </div>
 
   </div>
@@ -94,5 +94,8 @@
 
 <div class="title_bar">
   <span class="title">{{ set_name }}</span>
-  <span class="instance">Card {{ pos }}/{{ total }}</span>
+  {% if card_next and two_up != true %}
+  <span class="value value--xxsmall stretch text--center" data-clamp="1" style="min-width: 0">Next: {{ card_next.name }}{% if card_next.price_eur %} ({{ card_next.price_eur }} &euro;){% endif %}</span>
+  {% endif %}
+  <span class="instance" style="flex: 0 0 auto">Card {{ pos }}/{{ total }}</span>
 </div>
