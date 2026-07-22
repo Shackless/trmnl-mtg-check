@@ -1,4 +1,4 @@
-# Magic the Gathering (MtG) Card Show — a TRMNL plugin
+# Magic: The Gathering (MtG) Card Show — a TRMNL plugin
 
 A [TRMNL](https://usetrmnl.com) e-ink plugin that rotates through the cards of any Magic: The Gathering set, one card at a time — like a slow-motion spoiler season on your wall.
 
