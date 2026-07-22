@@ -77,11 +77,12 @@
           {% endif %}
         </div>
         {% if card.buy_url != "" %}
-        <div class="hidden lg:block no-shrink" style="width: 110px; height: 110px">{{ card.buy_url | qr_code }}</div>
+        <div class="hidden lg:block no-shrink w--[110px] h--[110px]">{{ card.buy_url | qr_code }}</div>
         {% endif %}
       </div>
 
       <div class="progress-bar progress-bar--xsmall hidden lg:block w--full lg:mt--20">
+        {%- comment -%} Inline width is TRMNL's own documented progress-bar pattern; a Liquid-computed percentage cannot be a class. {%- endcomment -%}
         <div class="track"><div class="fill" style="width: {{ pos | times: 100 | divided_by: total }}%"></div></div>
       </div>
       <div class="value value--xxsmall block text--right lg:mt--10" data-clamp="1">Next: {{ card_next.name }}{% if card_next.price_eur %} ({{ card_next.price_eur }} &euro;){% endif %}</div>

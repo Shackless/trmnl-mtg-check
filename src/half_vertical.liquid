@@ -9,7 +9,7 @@
     {% if card.buy_url != "" %}
     <div class="hidden lg:flex w--full lg:mt--10">
       <div class="stretch"></div>
-      <div class="no-shrink" style="width: 100px; height: 100px">{{ card.buy_url | qr_code }}</div>
+      <div class="no-shrink w--[100px] h--[100px]">{{ card.buy_url | qr_code }}</div>
     </div>
     {% endif %}
   </div>

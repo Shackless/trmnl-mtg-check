@@ -47,11 +47,20 @@ def number_key(card):
     return (int(digits or 0), card.get("collector_number", ""))
 
 
+def shape_face(card):
+    """Front face for double-faced/adventure cards; the card itself otherwise.
+    Defensive: card_faces can theoretically be an empty list."""
+    if card.get("image_uris"):
+        return card
+    faces = card.get("card_faces") or []
+    return faces[0] if faces else card
+
+
 LEGAL_FORMATS = ["standard", "pioneer", "modern", "legacy", "pauper", "commander"]
 
 
 def shape(card):
-    face = card["card_faces"][0] if not card.get("image_uris") and card.get("card_faces") else card
+    face = shape_face(card)
     imgs = face.get("image_uris") or card.get("image_uris") or {}
     mana = (face.get("mana_cost") or "").replace("{", "").replace("}", "")
     pt = f'{face["power"]}/{face["toughness"]}' if face.get("power") else face.get("loyalty", "")
@@ -92,10 +101,6 @@ def shape(card):
         "released": card.get("released_at", ""),
         "reprint": card.get("reprint", False),
     }
-
-
-def shape_face(card):
-    return card["card_faces"][0] if not card.get("image_uris") and card.get("card_faces") else card
 
 
 def run(input):
