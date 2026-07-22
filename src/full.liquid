@@ -42,7 +42,7 @@
       <div class="value value--xsmall lg:hidden" style="white-space: pre-line">{{ card.text }}</div>
       <div class="value value--xsmall hidden lg:block" style="white-space: pre-line">{{ card.text_lg }}</div>
       {% if card.flavor != "" %}
-      <div class="value value--xxsmall" style="font-style: italic">{{ card.flavor }}</div>
+      <div class="value value--xxsmall lg:mt--10" style="font-style: italic">{{ card.flavor }}</div>
       {% endif %}
       {% if card.pt != "" %}
       <div class="w--full text--right pr--5">
@@ -57,8 +57,12 @@
       {% if card.legal != "" %}
       <div class="value value--xxsmall block">Legal: {{ card.legal }}</div>
       {% endif %}
-      <div class="value value--xxsmall block">{{ card.rarity | capitalize }} #{{ card.cn }}{% if card.price_eur_foil %} &middot; Foil {{ card.price_eur_foil }} &euro;{% endif %}{% if card.reprint %} &middot; Reprint{% endif %}</div>
-      <div class="value value--xxsmall block">Art: {{ card.artist }}</div>
+      {%- comment -%} OG is one line short of overflowing; only the X affords the two-line credits {%- endcomment -%}
+      <div class="value value--xxsmall block lg:hidden">{{ card.rarity | capitalize }} #{{ card.cn }}{% if card.price_eur_foil %} &middot; Foil {{ card.price_eur_foil }} &euro;{% endif %} &middot; Art: {{ card.artist }}{% if card.reprint %} &middot; Reprint{% endif %}</div>
+      <div class="hidden lg:block">
+        <div class="value value--xxsmall block">{{ card.rarity | capitalize }} #{{ card.cn }}{% if card.price_eur_foil %} &middot; Foil {{ card.price_eur_foil }} &euro;{% endif %}{% if card.reprint %} &middot; Reprint{% endif %}</div>
+        <div class="value value--xxsmall block">Art: {{ card.artist }}</div>
+      </div>
 
       <div class="flex w--full lg:mt--16" style="align-items: flex-end">
         <div class="flex gap--large stretch" style="min-width: 0; align-items: flex-end">
@@ -96,8 +100,8 @@
 <div class="title_bar">
   <span class="title">{{ set_name }}</span>
   {% if card_next and two_up != true %}
-  {%- comment -%} .title carries the bar's optical padding-top; a plain value span sits visibly too high {%- endcomment -%}
-  <span class="title stretch text--center" style="min-width: 0; overflow: hidden; text-overflow: ellipsis">Next: {{ card_next.name }}{% if card_next.price_eur %} ({{ card_next.price_eur }} &euro;){% endif %}</span>
+  {%- comment -%} .title carries the bar's optical padding-top; .stretch would align-self:stretch and pin the text to the bar top, so grow via inline flex instead {%- endcomment -%}
+  <span class="title text--center" style="flex: 1 1 0; min-width: 0; overflow: hidden; text-overflow: ellipsis">Next: {{ card_next.name }}{% if card_next.price_eur %} ({{ card_next.price_eur }} &euro;){% endif %}</span>
   {% endif %}
   <span class="instance" style="flex: 0 0 auto">Card {{ pos }}/{{ total }}</span>
 </div>
