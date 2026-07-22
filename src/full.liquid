@@ -5,37 +5,37 @@
 </div>
 {% elsif two_up %}
 <div class="layout layout--row layout--stretch gap--large">
-  <div class="flex--col layout--center-x gap--small" style="flex: 1; min-width: 0; height: 100%">
-    <div style="flex: 1 1 0; min-height: 0; display: flex; align-items: center; justify-content: center">
+  <div class="flex flex--col flex--center-y gap--small h--full" style="flex: 1 1 0; min-width: 0">
+    <div class="flex flex--center-y flex--center-x w--full" style="flex: 1 1 0; min-height: 0">
       <img class="image image-dither" src="{{ card.img }}" style="max-height: 100%; width: auto" />
     </div>
-    <div class="title title--small" data-clamp="1">{{ card.name }}</div>
-    <div class="value value--xxsmall">{% if card.price_eur %}{{ card.price_eur }} &euro;{% else %}&mdash; &euro;{% endif %} &middot; {{ card.rarity | capitalize }}{% if card.pt != "" %} &middot; {{ card.pt }}{% endif %}</div>
+    <div class="title title--small text--center w--full" data-clamp="1">{{ card.name }}</div>
+    <div class="value value--xxsmall text--center w--full">{% if card.price_eur %}{{ card.price_eur }} &euro;{% else %}&mdash; &euro;{% endif %} &middot; {{ card.rarity | capitalize }}{% if card.pt != "" %} &middot; {{ card.pt }}{% endif %}</div>
   </div>
-  <div class="flex--col layout--center-x gap--small" style="flex: 1; min-width: 0; height: 100%">
-    <div style="flex: 1 1 0; min-height: 0; display: flex; align-items: center; justify-content: center">
+  <div class="flex flex--col flex--center-y gap--small h--full" style="flex: 1 1 0; min-width: 0">
+    <div class="flex flex--center-y flex--center-x w--full" style="flex: 1 1 0; min-height: 0">
       <img class="image image-dither" src="{{ card_next.img }}" style="max-height: 100%; width: auto" />
     </div>
-    <div class="title title--small" data-clamp="1">{{ card_next.name }}</div>
-    <div class="value value--xxsmall">{% if card_next.price_eur %}{{ card_next.price_eur }} &euro;{% else %}&mdash; &euro;{% endif %} &middot; {{ card_next.rarity | capitalize }}{% if card_next.pt != "" %} &middot; {{ card_next.pt }}{% endif %}</div>
+    <div class="title title--small text--center w--full" data-clamp="1">{{ card_next.name }}</div>
+    <div class="value value--xxsmall text--center w--full">{% if card_next.price_eur %}{{ card_next.price_eur }} &euro;{% else %}&mdash; &euro;{% endif %} &middot; {{ card_next.rarity | capitalize }}{% if card_next.pt != "" %} &middot; {{ card_next.pt }}{% endif %}</div>
   </div>
 </div>
 {% else %}
 <div class="layout layout--row layout--stretch gap--large" style="flex: 1 1 auto; min-height: 0">
-  <div style="height: 100%; display: flex; align-items: center">
+  <div class="flex flex--center-y h--full">
     <img class="image image-dither" src="{{ card.img }}" style="max-height: 100%; width: auto" />
   </div>
-  <div class="gap--xsmall" style="display: flex; flex-direction: column; flex: 1 1 0; min-width: 0; height: 100%; min-height: 0; justify-content: flex-start">
+  <div class="flex flex--col gap--xsmall h--full" style="flex: 1 1 0; min-width: 0; min-height: 0">
 
-    <div style="width: 100%">
-      <div class="flex" style="justify-content: space-between; align-items: baseline; width: 100%">
-        <span class="title title--large" data-clamp="1" style="min-width: 0">{{ card.name }}</span>
+    <div class="w--full">
+      <div class="flex flex--center-y w--full">
+        <span class="title title--large" data-clamp="1" style="flex: 1 1 0; min-width: 0">{{ card.name }}</span>
         {% if card.mana != "" %}<span class="value value--small value--tnums" style="flex: 0 0 auto">{{ card.mana }}</span>{% endif %}
       </div>
       <div class="value value--xsmall" data-clamp="1">{{ card.type }}</div>
     </div>
 
-    <div style="width: 100%">
+    <div class="w--full">
       {% if card.keywords != "" %}
       <div class="title title--small">{{ card.keywords }}</div>
       {% endif %}
@@ -44,23 +44,23 @@
       <div class="value value--xxsmall" style="font-style: italic">{{ card.flavor }}</div>
       {% endif %}
       {% if card.pt != "" %}
-      <div style="text-align: right; width: 100%; padding-right: 6px">
+      <div class="w--full text--right pr--5">
         <span class="value lg:value--large value--tnums">{{ card.pt }}</span>
       </div>
       {% endif %}
     </div>
 
-    <div style="flex: 1 1 0; min-height: 0"></div>
+    <div class="stretch" style="min-height: 0"></div>
 
-    <div style="width: 100%">
+    <div class="w--full">
       {% if card.legal != "" %}
-      <div class="value value--xxsmall" style="display: block" data-clamp="1">Legal: {{ card.legal }}</div>
+      <div class="value value--xxsmall block" data-clamp="1">Legal: {{ card.legal }}</div>
       {% endif %}
-      <div class="value value--xxsmall" style="display: block" data-clamp="1">{{ card.rarity | capitalize }} #{{ card.cn }}{% if card.price_eur_foil %} &middot; Foil {{ card.price_eur_foil }} &euro;{% endif %}{% if card.price_usd %} &middot; ${{ card.price_usd }} TCG{% endif %} &middot; Art: {{ card.artist }}{% if card.reprint %} &middot; Reprint{% endif %}</div>
+      <div class="value value--xxsmall block" data-clamp="1">{{ card.rarity | capitalize }} #{{ card.cn }}{% if card.price_eur_foil %} &middot; Foil {{ card.price_eur_foil }} &euro;{% endif %}{% if card.price_usd %} &middot; ${{ card.price_usd }} TCG{% endif %} &middot; Art: {{ card.artist }}{% if card.reprint %} &middot; Reprint{% endif %}</div>
 
-      <div class="lg:mt--20" style="width: 100%; display: flex; justify-content: space-between; align-items: flex-end">
-        <div style="flex: 1 1 50%; min-width: 0; display: flex; flex-direction: row; align-items: flex-end; gap: 28px">
-          <div style="display: flex; flex-direction: column">
+      <div class="flex w--full lg:mt--20" style="align-items: flex-end">
+        <div class="flex gap--large" style="flex: 1 1 0; min-width: 0">
+          <div class="flex flex--col" style="flex: 0 0 auto">
             {% if card.price_eur %}
             <span class="value value--tnums">{{ card.price_eur }} &euro;</span>
             <span class="value value--xxsmall">Cardmarket</span>
@@ -70,23 +70,21 @@
             {% endif %}
           </div>
           {% if card.edhrec_fmt != "" %}
-          <div style="display: flex; flex-direction: column">
+          <div class="flex flex--col" style="flex: 0 0 auto">
             <span class="value value--tnums">{{ card.edhrec_fmt }}</span>
             <span class="value value--xxsmall">EDHREC</span>
           </div>
           {% endif %}
         </div>
         {% if card.buy_url != "" %}
-        <div class="hidden lg:flex" style="flex: 0 0 auto">
-          <div style="width: 110px; height: 110px">{{ card.buy_url | qr_code }}</div>
-        </div>
+        <div class="hidden lg:block" style="flex: 0 0 auto; width: 110px; height: 110px">{{ card.buy_url | qr_code }}</div>
         {% endif %}
       </div>
 
-      <div class="progress-bar progress-bar--xsmall hidden lg:block lg:mt--20" style="width: 100%">
+      <div class="progress-bar progress-bar--xsmall hidden lg:block w--full lg:mt--20">
         <div class="track"><div class="fill" style="width: {{ pos | times: 100 | divided_by: total }}%"></div></div>
       </div>
-      <div class="value value--xxsmall lg:mt--10" style="display: block; text-align: right" data-clamp="1">Next: {{ card_next.name }}{% if card_next.price_eur %} ({{ card_next.price_eur }} &euro;){% endif %}</div>
+      <div class="value value--xxsmall block text--right lg:mt--10" data-clamp="1">Next: {{ card_next.name }}{% if card_next.price_eur %} ({{ card_next.price_eur }} &euro;){% endif %}</div>
     </div>
 
   </div>

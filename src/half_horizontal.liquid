@@ -1,15 +1,15 @@
 <div class="layout layout--row layout--stretch gap--large" style="flex: 1 1 auto; min-height: 0">
-  <div style="height: 100%; display: flex; align-items: center">
+  <div class="flex flex--center-y h--full">
     <img class="image image-dither" src="{{ card.img }}" style="max-height: 100%; width: auto" />
   </div>
-  <div style="display: flex; flex-direction: column; flex: 1 1 0; min-width: 0; height: 100%; justify-content: center">
-    <div class="flex" style="justify-content: space-between; align-items: baseline; width: 100%">
-      <span class="title" data-clamp="1" style="min-width: 0">{{ card.name }}</span>
+  <div class="flex flex--col flex--center-x h--full" style="flex: 1 1 0; min-width: 0">
+    <div class="flex flex--center-y w--full">
+      <span class="title" data-clamp="1" style="flex: 1 1 0; min-width: 0">{{ card.name }}</span>
       {% if card.mana != "" %}<span class="value value--xsmall value--tnums" style="flex: 0 0 auto">{{ card.mana }}</span>{% endif %}
     </div>
     <div class="value value--xxsmall" data-clamp="1">{{ card.type }} &middot; {{ card.rarity | capitalize }} #{{ card.cn }}{% if card.pt != "" %} &middot; {{ card.pt }}{% endif %}</div>
     <div class="value value--xxsmall lg:mt--10" style="white-space: pre-line">{{ card.text_first }}</div>
-    <div class="value value--xxsmall lg:mt--10" style="display: block">{% if card.price_eur %}{{ card.price_eur }} &euro; Cardmarket{% if card.price_usd %} &middot; ${{ card.price_usd }} TCG{% endif %}{% else %}Price from {{ release | date: "%b %d" }}{% endif %}{% if card.edhrec_fmt != "" %} &middot; EDHREC {{ card.edhrec_fmt }}{% endif %}</div>
+    <div class="value value--xxsmall block lg:mt--10">{% if card.price_eur %}{{ card.price_eur }} &euro; Cardmarket{% if card.price_usd %} &middot; ${{ card.price_usd }} TCG{% endif %}{% else %}Price from {{ release | date: "%b %d" }}{% endif %}{% if card.edhrec_fmt != "" %} &middot; EDHREC {{ card.edhrec_fmt }}{% endif %}</div>
   </div>
 </div>
 
