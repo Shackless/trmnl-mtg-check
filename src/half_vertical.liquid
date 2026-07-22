@@ -1,0 +1,15 @@
+<div class="layout layout--col layout--stretch layout--center-x gap--small" style="height: 100%">
+  <div style="flex: 1 1 0; min-height: 0; display: flex; align-items: center; justify-content: center; width: 100%">
+    <img class="image image-dither" src="{{ card.img }}" style="max-height: 100%; max-width: 100%; width: auto" />
+  </div>
+  <div class="flex--col" style="flex: 0 0 auto; width: 100%; text-align: center">
+    <span class="title title--small" data-clamp="1">{{ card.name }}</span>
+    <span class="label label--small" data-clamp="1">{{ card.rarity | capitalize }}{% if card.pt != "" %} &middot; {{ card.pt }}{% endif %}{% if card.mana != "" %} &middot; {{ card.mana }}{% endif %}</span>
+    <span class="label label--small">{% if card.price_eur %}{{ card.price_eur }} &euro; (Cardmarket){% else %}Price after {{ release }}{% endif %}</span>
+  </div>
+</div>
+
+<div class="title_bar">
+  <span class="title">{{ set_name }}</span>
+  <span class="instance">{{ pos }}/{{ total }}</span>
+</div>

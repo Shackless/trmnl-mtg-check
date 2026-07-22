@@ -1,0 +1,13 @@
+---
+# Local preview only (trmnlp serve). Polling plugin: trmnlp fetches Scryfall
+# live and runs src/transform.py — no fake variables needed.
+watch:
+  - src
+  - .trmnlp.yml
+transform_runtime: enabled
+custom_fields:
+  set: hob
+  set_custom: ""
+  sort: color
+  rotate: "15"
+  two_up: false

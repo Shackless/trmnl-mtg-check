@@ -1,0 +1,83 @@
+---
+strategy: polling
+no_screen_padding: 'no'
+dark_mode: 'no'
+static_data: 
+polling_verb: get
+framework_version: 
+serverless_language: python
+polling_url: 'https://api.scryfall.com/cards/search?q=set%3A{{ set_custom | default: set | default: "hob" | split: ":_" | last }}&unique=cards&order=set'
+polling_headers: accept=application/json
+polling_body: 
+oauth_enabled: 'false'
+oauth_pkce_enabled: 'no'
+oauth_authorize_url: ''
+oauth_token_url: ''
+oauth_scopes: ''
+oauth_scope_separator: ''
+oauth_refresh_url: ''
+oauth_auth_params: ''
+oauth_token_headers: ''
+oauth_token_site: ''
+oauth_token_params: ''
+oauth_token_request_auth_method: ''
+oauth_body_format: ''
+oauth_token_response_metadata: ''
+oauth_authorization_method: ''
+oauth_refresh_params: ''
+oauth_token_field_name: ''
+oauth_expiry_field_name: ''
+oauth_expiry_strategy: ''
+oauth_fixed_expiry_ms: ''
+custom_fields:
+- keyname: set
+  name: Set
+  field_type: select
+  description: Which Magic set to rotate through
+  default: hob
+  options:
+  - The Hobbit (Aug 2026): hob
+  - The Hobbit Commander (Aug 2026): hoc
+  - Star Trek (Nov 2026): trk
+  - Reality Fracture (Oct 2026): fra
+  - Marvel Super Heroes (Jun 2026): msh
+  - Secrets of Strixhaven (Apr 2026): sos
+  - Teenage Mutant Ninja Turtles (Mar 2026): tmt
+  - Lorwyn Eclipsed (Jan 2026): ecl
+  - Avatar - The Last Airbender (2025): tla
+  - Marvel's Spider-Man (2025): spm
+  - Edge of Eternities (2025): eoe
+  - Final Fantasy (2025): fin
+- keyname: set_custom
+  name: Custom set code
+  field_type: string
+  optional: true
+  maxlength: 6
+  placeholder: e.g. ltr
+  help_text: Overrides the dropdown. Any set code from <a href="https://scryfall.com/sets">scryfall.com/sets</a>.
+- keyname: sort
+  name: Card order
+  field_type: select
+  description: Rotation walks the set in this order, one card at a time, no repeats until every card was shown
+  default: number
+  options:
+  - Collector number: number
+  - Color (then mana cost): color
+  - Rarity (then mana cost): rarity
+- keyname: rotate
+  name: Next card every
+  field_type: select
+  default: '15'
+  options:
+  - 15 minutes: '15'
+  - 30 minutes: '30'
+  - 1 hour: '60'
+  - 6 hours: '360'
+  - 1 day: '1440'
+  help_text: Should match or exceed your device refresh rate, otherwise cards get skipped.
+- keyname: two_up
+  name: Show two cards side by side (full screen only)
+  field_type: boolean
+  default: false
+name: mtg-check
+refresh_interval: 15
