@@ -2,7 +2,7 @@
   <div class="flex flex--center-y h--full">
     <img class="image image-dither" src="{{ card.img }}" style="max-height: 100%; width: auto" />
   </div>
-  <div class="flex flex--col flex--center-x h--full" style="flex: 1 1 0; min-width: 0; align-items: flex-start">
+  <div class="flex flex--col flex--center-x h--full stretch" style="min-width: 0; align-items: flex-start">
     <div class="title title--small w--full" data-clamp="2">{{ card.name }}</div>
     <div class="value value--xxsmall w--full" data-clamp="2">{{ card.type }}{% if card.pt != "" %} &middot; {{ card.pt }}{% endif %}{% if card.mana != "" %} &middot; {{ card.mana }}{% endif %}</div>
     <div class="value value--xxsmall block w--full lg:mt--5">{% if card.price_eur %}{{ card.price_eur }} &euro;{% else %}&mdash; &euro;{% endif %} &middot; {{ card.rarity | capitalize }}</div>

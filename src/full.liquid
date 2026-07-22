@@ -5,15 +5,15 @@
 </div>
 {% elsif two_up %}
 <div class="layout layout--row layout--stretch gap--large">
-  <div class="flex flex--col flex--center-y gap--small h--full" style="flex: 1 1 0; min-width: 0">
-    <div class="flex flex--center-y flex--center-x w--full" style="flex: 1 1 0; min-height: 0">
+  <div class="flex flex--col flex--center-y gap--small h--full stretch" style="min-width: 0">
+    <div class="flex flex--center-y flex--center-x w--full stretch" style="min-height: 0">
       <img class="image image-dither" src="{{ card.img }}" style="max-height: 100%; width: auto" />
     </div>
     <div class="title title--small text--center w--full" data-clamp="1">{{ card.name }}</div>
     <div class="value value--xxsmall text--center w--full">{% if card.price_eur %}{{ card.price_eur }} &euro;{% else %}&mdash; &euro;{% endif %} &middot; {{ card.rarity | capitalize }}{% if card.pt != "" %} &middot; {{ card.pt }}{% endif %}</div>
   </div>
-  <div class="flex flex--col flex--center-y gap--small h--full" style="flex: 1 1 0; min-width: 0">
-    <div class="flex flex--center-y flex--center-x w--full" style="flex: 1 1 0; min-height: 0">
+  <div class="flex flex--col flex--center-y gap--small h--full stretch" style="min-width: 0">
+    <div class="flex flex--center-y flex--center-x w--full stretch" style="min-height: 0">
       <img class="image image-dither" src="{{ card_next.img }}" style="max-height: 100%; width: auto" />
     </div>
     <div class="title title--small text--center w--full" data-clamp="1">{{ card_next.name }}</div>
@@ -25,12 +25,12 @@
   <div class="flex flex--center-y h--full">
     <img class="image image-dither" src="{{ card.img }}" style="max-height: 100%; width: auto" />
   </div>
-  <div class="flex flex--col gap--xsmall h--full" style="flex: 1 1 0; min-width: 0; min-height: 0; align-items: flex-start">
+  <div class="flex flex--col gap--xsmall h--full stretch" style="min-width: 0; min-height: 0; align-items: flex-start">
 
     <div class="w--full">
       <div class="flex flex--center-y w--full">
-        <span class="title title--large" data-clamp="1" style="flex: 1 1 0; min-width: 0">{{ card.name }}</span>
-        {% if card.mana != "" %}<span class="value value--small value--tnums" style="flex: 0 0 auto">{{ card.mana }}</span>{% endif %}
+        <span class="title title--large stretch" data-clamp="1" style="min-width: 0">{{ card.name }}</span>
+        {% if card.mana != "" %}<span class="value value--small value--tnums no-shrink">{{ card.mana }}</span>{% endif %}
       </div>
       <div class="value value--xsmall" data-clamp="1">{{ card.type }}</div>
     </div>
@@ -59,8 +59,8 @@
       <div class="value value--xxsmall block" data-clamp="1">{{ card.rarity | capitalize }} #{{ card.cn }}{% if card.price_eur_foil %} &middot; Foil {{ card.price_eur_foil }} &euro;{% endif %}{% if card.price_usd %} &middot; ${{ card.price_usd }} TCG{% endif %} &middot; Art: {{ card.artist }}{% if card.reprint %} &middot; Reprint{% endif %}</div>
 
       <div class="flex w--full lg:mt--20" style="align-items: flex-end">
-        <div class="flex gap--large" style="flex: 1 1 0; min-width: 0">
-          <div class="flex flex--col" style="flex: 0 0 auto">
+        <div class="flex gap--large stretch" style="min-width: 0">
+          <div class="flex flex--col no-shrink">
             {% if card.price_eur %}
             <span class="value value--tnums">{{ card.price_eur }} &euro;</span>
             <span class="value value--xxsmall">Cardmarket</span>
@@ -70,14 +70,14 @@
             {% endif %}
           </div>
           {% if card.edhrec_fmt != "" %}
-          <div class="flex flex--col" style="flex: 0 0 auto">
+          <div class="flex flex--col no-shrink">
             <span class="value value--tnums">{{ card.edhrec_fmt }}</span>
             <span class="value value--xxsmall">EDHREC</span>
           </div>
           {% endif %}
         </div>
         {% if card.buy_url != "" %}
-        <div class="hidden lg:block" style="flex: 0 0 auto; width: 110px; height: 110px">{{ card.buy_url | qr_code }}</div>
+        <div class="hidden lg:block no-shrink" style="width: 110px; height: 110px">{{ card.buy_url | qr_code }}</div>
         {% endif %}
       </div>
 

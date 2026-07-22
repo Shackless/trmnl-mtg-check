@@ -55,7 +55,7 @@ def shape(card):
     imgs = face.get("image_uris") or card.get("image_uris") or {}
     mana = (face.get("mana_cost") or "").replace("{", "").replace("}", "")
     pt = f'{face["power"]}/{face["toughness"]}' if face.get("power") else face.get("loyalty", "")
-    # Adventure/Split-Karten: oracle_text/flavor liegen nur in card_faces, nicht top-level
+    # Adventure/split cards keep oracle_text/flavor only in card_faces, not top-level
     oracle = face.get("oracle_text")
     flavor = face.get("flavor_text")
     if not oracle and card.get("card_faces"):
@@ -94,6 +94,10 @@ def shape(card):
     }
 
 
+def shape_face(card):
+    return card["card_faces"][0] if not card.get("image_uris") and card.get("card_faces") else card
+
+
 def run(input):
     cards = list(input.get("data") or [])
     next_page = input.get("next_page") if input.get("has_more") else None
@@ -107,8 +111,10 @@ def run(input):
         wanted = field(input, "set_custom", "") or field(input, "set", "hob")
         return {"error": f"No cards found for set '{wanted}'", "total": 0}
 
-    # Werte können aus fehlerhaft gespeicherten Options als "label:_wert" ankommen
-    # (parametrisiertes Label) — dann zählt nur der Teil nach dem letzten ":_".
+    # Not defensive fiction — an observed TRMNL quirk: select options that were
+    # once saved from quoted string options (not YAML label/value mappings) persist
+    # as the parameterized label, e.g. "the_hobbit_(aug_2026):_hob". Instances keep
+    # that broken value until re-saved, so we extract the part after the last ":_".
     sort = str(field(input, "sort", "number")).split(":_")[-1]
     if sort == "color":
         cards.sort(key=lambda c: (color_bucket(c, shape_face(c)), c.get("cmc", 0), c.get("name", "")))
@@ -133,6 +139,3 @@ def run(input):
         "release": sample.get("released_at", ""),
     }
 
-
-def shape_face(card):
-    return card["card_faces"][0] if not card.get("image_uris") and card.get("card_faces") else card
