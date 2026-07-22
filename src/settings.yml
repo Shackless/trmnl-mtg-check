@@ -72,6 +72,15 @@ custom_fields:
   - Collector number: number
   - Color (then mana cost): color
   - Rarity (then mana cost): rarity
+- keyname: lands
+  name: Lands
+  field_type: select
+  description: Exclude lands from the rotation
+  default: all
+  options:
+  - Include all cards: all
+  - Skip basic lands: basics
+  - Skip all lands: none
 - keyname: rotate
   name: Next card every
   field_type: select

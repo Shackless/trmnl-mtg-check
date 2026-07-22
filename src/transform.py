@@ -7,6 +7,7 @@ modulo set size) — every card shows exactly once per full cycle, no
 server-side state needed.
 """
 import json
+import re
 import time
 import urllib.request
 
@@ -58,11 +59,35 @@ def shape_face(card):
 
 LEGAL_FORMATS = ["standard", "pioneer", "modern", "legacy", "pauper", "commander"]
 
+SYMBOL_RE = re.compile(r"\{([^}]+)\}")
+
+
+def symbolize(text):
+    """Replace Scryfall symbol notation ({T}, {W}, {W/U}, {2}, ...) with the
+    official symbol SVGs, sized to the surrounding text via em height."""
+    def repl(match):
+        code = "".join(ch for ch in match.group(1) if ch.isalnum())
+        if not code:
+            return match.group(1)
+        return ('<img src="https://svgs.scryfall.io/card-symbols/%s.svg"'
+                ' style="height: 0.85em"/>' % code)
+    return SYMBOL_RE.sub(repl, text)
+
+
+def clip(text, limit):
+    """Truncate without cutting through a {symbol}; returns (text, was_cut)."""
+    if len(text) <= limit:
+        return text, False
+    cut = text[:limit]
+    if cut.rfind("{") > cut.rfind("}"):
+        cut = cut[:cut.rfind("{")]
+    return cut, True
+
 
 def shape(card):
     face = shape_face(card)
     imgs = face.get("image_uris") or card.get("image_uris") or {}
-    mana = (face.get("mana_cost") or "").replace("{", "").replace("}", "")
+    mana = symbolize(face.get("mana_cost") or "")
     pt = f'{face["power"]}/{face["toughness"]}' if face.get("power") else face.get("loyalty", "")
     # Adventure/split cards keep oracle_text/flavor only in card_faces, not top-level
     oracle = face.get("oracle_text")
@@ -73,12 +98,23 @@ def shape(card):
         pt = pt or next((f'{f["power"]}/{f["toughness"]}' for f in card["card_faces"] if f.get("power")), "")
     prices = card.get("prices") or {}
     legalities = card.get("legalities") or {}
+    oracle = oracle or ""
+    body, body_cut = clip(oracle, 260)
+    paras = oracle.split("\n")
+    if len(paras) >= 2 and len(paras[0]) + len(paras[1]) <= 219:
+        first = paras[0] + "\n" + paras[1]
+    else:
+        first, _ = clip(paras[0], 220)
+    legal_in = [f.capitalize() for f in LEGAL_FORMATS if legalities.get(f) == "legal"]
     return {
         "name": face.get("name", card["name"]),
         "mana": mana,
+        # Plain-text fallback for clamped one-liners (the clamp engine drops
+        # trailing <img> symbols, leaving a dangling separator)
+        "mana_txt": (face.get("mana_cost") or "").replace("{", "").replace("}", ""),
         "type": face.get("type_line", card.get("type_line", "")),
-        "text": ((oracle or "")[:260] + ("&hellip;" if oracle and len(oracle) > 260 else "")),
-        "text_first": (lambda p: p[0][:220] if len(p) < 2 or len(p[0]) + len(p[1]) > 219 else p[0] + "\n" + p[1])((oracle or "").split("\n")),
+        "text": symbolize(body) + ("&hellip;" if body_cut else ""),
+        "text_first": symbolize(first),
         "flavor": (flavor or "")[:180],
         "pt": pt,
         "rarity": card.get("rarity", ""),
@@ -97,7 +133,7 @@ def shape(card):
         "spoiled_by": (card.get("preview") or {}).get("source", ""),
         "keywords": (lambda kw, first: "" if kw and all(k.strip().lower() in first for k in kw.split(",")) else kw)(
             ", ".join((card.get("keywords") or [])[:4]), (oracle or "").split("\n")[0].lower()),
-        "legal": " &middot; ".join(f.capitalize() for f in LEGAL_FORMATS if legalities.get(f) == "legal"),
+        "legal": ("All formats" if len(legal_in) == len(LEGAL_FORMATS) else " &middot; ".join(legal_in)),
         "released": card.get("released_at", ""),
         "reprint": card.get("reprint", False),
     }
@@ -115,6 +151,14 @@ def run(input):
     if not cards:
         wanted = field(input, "set_custom", "") or field(input, "set", "hob")
         return {"error": f"No cards found for set '{wanted}'", "total": 0}
+
+    lands = str(field(input, "lands", "all")).split(":_")[-1]
+    if lands in ("basics", "none"):
+        needle = "Basic Land" if lands == "basics" else "Land"
+        kept = [c for c in cards
+                if needle not in (shape_face(c).get("type_line") or c.get("type_line") or "")]
+        if kept:  # a pure land set would otherwise filter down to nothing
+            cards = kept
 
     # Not defensive fiction — an observed TRMNL quirk: select options that were
     # once saved from quoted string options (not YAML label/value mappings) persist

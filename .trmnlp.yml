@@ -9,5 +9,6 @@ custom_fields:
   set: hob
   set_custom: ""
   sort: color
+  lands: basics
   rotate: "15"
   two_up: false

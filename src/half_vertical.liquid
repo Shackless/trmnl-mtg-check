@@ -4,7 +4,7 @@
   </div>
   <div class="w--full text--center no-shrink">
     <div class="title title--small" data-clamp="2">{{ card.name }}</div>
-    <div class="value value--xxsmall" data-clamp="1">{{ card.rarity | capitalize }} #{{ card.cn }}{% if card.pt != "" %} &middot; {{ card.pt }}{% endif %}{% if card.mana != "" %} &middot; {{ card.mana }}{% endif %}</div>
+    <div class="value value--xxsmall" data-clamp="1">{{ card.rarity | capitalize }} #{{ card.cn }}{% if card.pt != "" %} &middot; {{ card.pt }}{% endif %}{% if card.mana_txt != "" %} &middot; {{ card.mana_txt }}{% endif %}</div>
     <div class="value value--xxsmall block">{% if card.price_eur %}{{ card.price_eur }} &euro; (Cardmarket){% else %}Price from {{ release | date: "%b %d" }}{% endif %}{% if card.edhrec_fmt != "" %} &middot; EDHREC {{ card.edhrec_fmt }}{% endif %}</div>
     {% if card.buy_url != "" %}
     <div class="hidden lg:flex w--full lg:mt--10">

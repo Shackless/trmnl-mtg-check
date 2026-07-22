@@ -4,7 +4,7 @@
   </div>
   <div class="flex flex--col flex--center-x h--full stretch" style="min-width: 0; align-items: flex-start">
     <div class="title title--small w--full" data-clamp="2">{{ card.name }}</div>
-    <div class="value value--xxsmall w--full" data-clamp="2">{{ card.type }}{% if card.pt != "" %} &middot; {{ card.pt }}{% endif %}{% if card.mana != "" %} &middot; {{ card.mana }}{% endif %}</div>
+    <div class="value value--xxsmall w--full" data-clamp="2">{{ card.type }}{% if card.pt != "" %} &middot; {{ card.pt }}{% endif %}{% if card.mana_txt != "" %} &middot; {{ card.mana_txt }}{% endif %}</div>
     <div class="value value--xxsmall block w--full lg:mt--5">{% if card.price_eur %}{{ card.price_eur }} &euro;{% else %}&mdash; &euro;{% endif %} &middot; {{ card.rarity | capitalize }}</div>
   </div>
 </div>

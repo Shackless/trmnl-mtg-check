@@ -54,9 +54,9 @@
 
     <div class="w--full">
       {% if card.legal != "" %}
-      <div class="value value--xxsmall block" data-clamp="1">Legal: {{ card.legal }}</div>
+      <div class="value value--xxsmall block">Legal: {{ card.legal }}</div>
       {% endif %}
-      <div class="value value--xxsmall block" data-clamp="1">{{ card.rarity | capitalize }} #{{ card.cn }}{% if card.price_eur_foil %} &middot; Foil {{ card.price_eur_foil }} &euro;{% endif %}{% if card.price_usd %} &middot; ${{ card.price_usd }} TCG{% endif %} &middot; Art: {{ card.artist }}{% if card.reprint %} &middot; Reprint{% endif %}</div>
+      <div class="value value--xxsmall block">{{ card.rarity | capitalize }} #{{ card.cn }}{% if card.price_eur_foil %} &middot; Foil {{ card.price_eur_foil }} &euro;{% endif %}{% if card.price_usd %} &middot; ${{ card.price_usd }} TCG{% endif %} &middot; Art: {{ card.artist }}{% if card.reprint %} &middot; Reprint{% endif %}</div>
 
       <div class="flex w--full lg:mt--20" style="align-items: flex-end">
         <div class="flex gap--large stretch" style="min-width: 0">

@@ -21,6 +21,7 @@ Powered by the excellent [Scryfall API](https://scryfall.com/docs/api). No serve
 | Set | Dropdown of current sets (The Hobbit, Marvel Super Heroes, Star Trek, …) |
 | Custom set code | Overrides the dropdown — any code from [scryfall.com/sets](https://scryfall.com/sets) |
 | Card order | Collector number · Color (then mana cost) · Rarity (then mana cost) |
+| Lands | Include all cards · Skip basic lands · Skip all lands |
 | Next card every | 15 min · 30 min · 1 h · 6 h · 1 day |
 | Two cards side by side | Full screen shows current + next card |
 
